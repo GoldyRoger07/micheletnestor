@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <!-- Visuel provisoire : remplacer par la photo officielle (JPG/WebP 800×1000 minimum). -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1d3150"/>
+      <stop offset="1" stop-color="#0b1422"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.35" r="0.6">
+      <stop offset="0" stop-color="#c9a14a" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#c9a14a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a4166"/>
+      <stop offset="1" stop-color="#15233a"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <rect width="800" height="1000" fill="url(#glow)"/>
+  <g fill="url(#body)" stroke="#c9a14a" stroke-opacity="0.45" stroke-width="2">
+    <circle cx="400" cy="390" r="150"/>
+    <path d="M110 1000c0-190 130-330 290-330s290 140 290 330z"/>
+  </g>
+  <path d="M320 700l80 110 80-110" fill="none" stroke="#c9a14a" stroke-opacity="0.5" stroke-width="2"/>
+  <text x="400" y="945" text-anchor="middle" font-family="Georgia, serif" font-size="28" letter-spacing="8" fill="#e6c77f" fill-opacity="0.8">MICHELET NESTOR</text>
+</svg>

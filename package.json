@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "seo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/generate-seo-files.ts",
+    "prestart": "npm run seo",
     "start": "ng serve",
+    "prebuild": "npm run seo",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -37,5 +40,8 @@
     "tailwindcss": "^4.1.12",
     "typescript": "~6.0.2",
     "vitest": "^4.0.8"
+  },
+  "engines": {
+    "node": ">=22.18.0"
   }
 }

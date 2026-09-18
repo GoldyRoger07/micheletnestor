@@ -7,31 +7,50 @@ import {
 import express from 'express';
 import { join } from 'node:path';
 
+import { contactRouter } from './server/contact';
+
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
 
+app.disable('x-powered-by');
+app.set('trust proxy', 1);
+
 /**
- * Example Express Rest API endpoints can be defined here.
- * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/{*splat}', (req, res) => {
- *   // Handle API request
- * });
- * ```
+ * En-têtes de sécurité appliqués à toutes les réponses.
  */
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), interest-cohort=()');
+  if (req.secure) {
+    res.setHeader('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
+  }
+  next();
+});
+
+/**
+ * API du formulaire de contact.
+ */
+app.use('/api/contact', contactRouter);
 
 /**
  * Serve static files from /browser
+ * Les fichiers hashés (JS/CSS) sont mis en cache un an ; les autres (images, sitemap, robots) un jour.
  */
 app.use(
   express.static(browserDistFolder, {
-    maxAge: '1y',
     index: false,
     redirect: false,
+    setHeaders: (res, path) => {
+      const hashed = /-[a-z0-9_]{8,}\.(?:js|css)$/i.test(path) || /media[\\/]/.test(path);
+      res.setHeader(
+        'Cache-Control',
+        hashed ? 'public, max-age=31536000, immutable' : 'public, max-age=86400',
+      );
+    },
   }),
 );
 

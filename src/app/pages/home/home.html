@@ -1,0 +1,138 @@
+<!-- HERO -->
+<section class="relative overflow-hidden bg-ink text-paper" aria-labelledby="hero-title">
+  <div class="hero-pattern pointer-events-none absolute inset-0" aria-hidden="true"></div>
+  <div
+    class="pointer-events-none absolute -right-40 top-1/4 h-[36rem] w-[36rem] rounded-full bg-gold-500/15 blur-3xl"
+    aria-hidden="true"
+  ></div>
+
+  <div class="container-page relative grid items-center gap-12 pb-20 pt-32 md:pt-36 lg:grid-cols-12 lg:gap-8 lg:pb-28">
+    <div class="lg:col-span-7">
+      <p class="eyebrow fade-up text-gold-300">{{ profile.jobTitle }}</p>
+      <h1 id="hero-title" class="fade-up mt-4 font-display text-5xl leading-[1.05] sm:text-6xl xl:text-7xl">
+        {{ profile.name }}
+      </h1>
+      <p class="fade-up mt-6 max-w-xl text-xl text-paper/85 md:text-2xl">{{ profile.tagline }}</p>
+      <div class="fade-up mt-10 flex flex-col gap-4 sm:flex-row">
+        <a routerLink="/biographie" class="btn btn-gold">
+          Découvrir son parcours
+          <app-icon name="arrow-right" [size]="18" />
+        </a>
+        <a routerLink="/contact" class="btn btn-outline-light">Prendre contact</a>
+      </div>
+    </div>
+
+    <div class="relative mx-auto w-full max-w-sm sm:max-w-md lg:col-span-5 lg:max-w-none">
+      <div class="absolute -inset-3 translate-x-4 translate-y-4 rounded-[2rem] border border-gold-500/50" aria-hidden="true"></div>
+      <div class="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-ink-800 shadow-2xl">
+        <img
+          [ngSrc]="profile.portrait.src"
+          [alt]="profile.portrait.alt"
+          fill
+          priority
+          class="object-cover"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHIFFRES CLÉS -->
+<section aria-label="Chiffres clés" class="border-b border-line bg-white">
+  <dl class="container-page grid grid-cols-2 gap-y-10 py-12 md:grid-cols-4">
+    @for (figure of profile.keyFigures; track figure.label) {
+      <div class="reveal flex flex-col text-center md:border-l md:border-line md:first:border-l-0">
+        <dt class="order-2 mt-2 text-sm uppercase tracking-wider text-muted">{{ figure.label }}</dt>
+        <dd class="order-1 font-display text-4xl text-ink md:text-5xl">{{ figure.value }}</dd>
+      </div>
+    }
+  </dl>
+</section>
+
+<!-- À PROPOS -->
+<section class="section bg-paper" aria-labelledby="about-title">
+  <div class="container-page grid gap-12 lg:grid-cols-2 lg:gap-20">
+    <div class="reveal">
+      <p class="eyebrow text-gold-700">À propos</p>
+      <h2 id="about-title" class="section-title mt-3">Un engagement au service de tous</h2>
+      @for (paragraph of profile.shortBio; track $index) {
+        <p class="mt-5 text-lg text-muted">{{ paragraph }}</p>
+      }
+      <a routerLink="/biographie" class="link-arrow mt-8">
+        Lire la biographie complète <app-icon name="arrow-right" [size]="18" />
+      </a>
+    </div>
+
+    <figure class="reveal relative self-center rounded-3xl bg-ink p-10 text-paper shadow-xl md:p-14">
+      <app-icon name="quote" [size]="44" class="text-gold-500" />
+      <blockquote class="mt-6 font-display text-2xl leading-snug md:text-3xl">
+        « {{ profile.quote.text }} »
+      </blockquote>
+      @if (profile.quote.context) {
+        <figcaption class="mt-6 text-sm uppercase tracking-widest text-gold-300">— {{ profile.quote.context }}</figcaption>
+      }
+    </figure>
+  </div>
+</section>
+
+<!-- ENGAGEMENTS -->
+<section class="section bg-white" aria-labelledby="engagements-title">
+  <div class="container-page">
+    <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+      <div>
+        <p class="eyebrow text-gold-700">Engagements</p>
+        <h2 id="engagements-title" class="section-title mt-3">Les causes qui guident son action</h2>
+      </div>
+      <a routerLink="/engagements" class="link-arrow">Tous les engagements <app-icon name="arrow-right" [size]="18" /></a>
+    </div>
+
+    <ul class="mt-12 grid gap-6 md:grid-cols-3">
+      @for (engagement of engagements; track engagement.id) {
+        <li class="reveal card p-8">
+          <span class="flex h-14 w-14 items-center justify-center rounded-2xl bg-gold-100 text-gold-700">
+            <app-icon [name]="engagement.icon" [size]="28" />
+          </span>
+          <h3 class="mt-6 font-display text-2xl text-ink">{{ engagement.title }}</h3>
+          <p class="mt-3 text-muted">{{ engagement.summary }}</p>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<!-- ACTUALITÉS -->
+@if (latestNews.length) {
+  <section class="section bg-paper" aria-labelledby="news-title">
+    <div class="container-page">
+      <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <div>
+          <p class="eyebrow text-gold-700">Actualités</p>
+          <h2 id="news-title" class="section-title mt-3">Les dernières nouvelles</h2>
+        </div>
+        <a routerLink="/actualites" class="link-arrow">Toutes les actualités <app-icon name="arrow-right" [size]="18" /></a>
+      </div>
+
+      <ul class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        @for (article of latestNews; track article.slug) {
+          <li><app-news-card [article]="article" /></li>
+        }
+      </ul>
+    </div>
+  </section>
+}
+
+<!-- APPEL À L'ACTION -->
+<section class="relative overflow-hidden bg-ink py-20 text-paper md:py-24" aria-labelledby="cta-title">
+  <div class="hero-pattern pointer-events-none absolute inset-0 opacity-50" aria-hidden="true"></div>
+  <div class="container-page relative flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
+    <div class="max-w-2xl">
+      <h2 id="cta-title" class="font-display text-3xl md:text-4xl">Invitation, interview ou partenariat ?</h2>
+      <p class="mt-4 text-lg text-paper/80">
+        L’équipe de {{ profile.name }} répond aux demandes des médias, des organisateurs d’événements et des partenaires.
+      </p>
+    </div>
+    <a routerLink="/contact" class="btn btn-gold shrink-0">
+      Nous écrire <app-icon name="mail" [size]="18" />
+    </a>
+  </div>
+</section>

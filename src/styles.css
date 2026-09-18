@@ -1,3 +1,248 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import 'tailwindcss';
+
+/* ------------------------------------------------------------------ */
+/* Design tokens                                                        */
+/* ------------------------------------------------------------------ */
+@theme {
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --color-ink: #0f1b2d;
+  --color-ink-800: #172740;
+  --color-paper: #faf7f2;
+  --color-line: #e7e1d6;
+  --color-muted: #5b6472;
+
+  --color-gold-100: #f6ecd6;
+  --color-gold-300: #e6c77f;
+  --color-gold-500: #c9a14a;
+  --color-gold-600: #b8862b;
+  --color-gold-700: #8f6620;
+  --color-gold-800: #6e4e18;
+
+  --spacing-18: 4.5rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                 */
+/* ------------------------------------------------------------------ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+  }
+
+  ::selection {
+    @apply bg-gold-300 text-ink;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-gold-500;
+  }
+
+  img,
+  svg {
+    @apply max-w-full;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Composants                                                           */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10;
+  }
+
+  .section {
+    @apply py-20 md:py-28;
+  }
+
+  .section-title {
+    @apply font-display text-3xl leading-tight text-balance text-ink md:text-4xl lg:text-5xl;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.2em];
+  }
+
+  .card {
+    @apply rounded-3xl border border-line bg-white shadow-sm;
+  }
+
+  .skip-link {
+    @apply fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-gold-500 px-5 py-3 font-semibold text-ink transition focus:translate-y-0;
+  }
+
+  /* Boutons */
+  .btn {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-7 py-3 text-base font-semibold transition duration-200 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-gold {
+    @apply bg-gold-500 text-ink hover:bg-gold-300;
+  }
+  .btn-dark {
+    @apply bg-ink text-paper hover:bg-ink-800;
+  }
+  .btn-outline-light {
+    @apply border border-paper/40 text-paper hover:border-gold-300 hover:text-gold-300;
+  }
+  .btn-outline-dark {
+    @apply border border-ink/25 text-ink hover:border-ink hover:bg-ink hover:text-paper;
+  }
+
+  .link-arrow {
+    @apply inline-flex items-center gap-2 font-semibold text-gold-700 transition hover:gap-3 hover:text-gold-800;
+  }
+
+  .icon-button {
+    @apply inline-flex h-11 w-11 items-center justify-center rounded-full border border-line bg-white text-ink transition hover:border-gold-500 hover:bg-gold-500;
+  }
+  .icon-button-dark {
+    @apply border-white/15 bg-white/5 text-paper hover:text-ink;
+  }
+
+  .chip {
+    @apply inline-flex min-h-10 items-center rounded-full border border-line bg-white px-4 text-sm font-medium text-ink transition hover:border-gold-500;
+  }
+  .chip-active {
+    @apply border-ink bg-ink text-paper hover:border-ink;
+  }
+  .chip-dark {
+    @apply border-white/20 bg-white/5 text-paper hover:border-gold-300 hover:text-gold-300;
+  }
+
+  .contact-icon {
+    @apply flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gold-100 text-gold-700;
+  }
+
+  /* Navigation */
+  .header-solid {
+    @apply bg-ink/95 shadow-lg backdrop-blur-md;
+  }
+  .nav-link {
+    @apply relative rounded-full px-4 py-2 text-sm font-medium text-paper/85 transition hover:text-gold-300;
+  }
+  .nav-link.nav-active {
+    @apply text-gold-300;
+  }
+  .nav-link.nav-active::after {
+    content: '';
+    @apply absolute inset-x-4 -bottom-0.5 h-px bg-gold-300;
+  }
+  .mobile-menu {
+    @apply invisible max-h-0 overflow-hidden bg-ink/95 opacity-0 backdrop-blur-md transition-all duration-300;
+  }
+  .mobile-menu-open {
+    @apply visible max-h-[calc(100dvh-4.5rem)] overflow-y-auto opacity-100;
+  }
+
+  /* Formulaires */
+  .form-label {
+    @apply mb-2 block text-sm font-semibold text-ink;
+  }
+  .form-input {
+    @apply block w-full rounded-xl border border-line bg-paper px-4 py-3 text-base text-ink transition placeholder:text-muted focus:border-gold-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-gold-500/30;
+  }
+  .form-input[aria-invalid='true'] {
+    @apply border-red-500 focus:ring-red-500/30;
+  }
+  .form-error {
+    @apply mt-2 text-sm text-red-700;
+  }
+
+  /* Texte long (biographie, articles, mentions légales) */
+  .prose-site {
+    @apply text-lg leading-relaxed text-ink/85;
+  }
+  .prose-site > * + * {
+    @apply mt-6;
+  }
+  .prose-site h2 {
+    @apply pt-6 font-display text-3xl leading-tight text-ink;
+  }
+  .prose-site a {
+    @apply font-medium text-gold-700 underline underline-offset-4 hover:text-gold-800;
+  }
+
+  /* Décor : motif discret sur fonds sombres */
+  .hero-pattern {
+    background-image:
+      radial-gradient(circle at 20% 20%, rgb(201 161 74 / 0.12), transparent 40%),
+      radial-gradient(circle at 80% 0%, rgb(255 255 255 / 0.06), transparent 35%),
+      linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+    background-size:
+      auto,
+      auto,
+      56px 56px,
+      56px 56px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Animations (amélioration progressive, désactivées si mouvement réduit) */
+/* ------------------------------------------------------------------ */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Le « reveal » ne joue que sur la position, jamais l'opacité : le contenu reste toujours
+   visible, y compris pour les robots d'indexation qui rendent la page dans un viewport très haut. */
+@keyframes slide-up {
+  from {
+    transform: translateY(32px);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fade-up {
+    animation: fade-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .fade-up:nth-child(2) {
+    animation-delay: 0.08s;
+  }
+  .fade-up:nth-child(3) {
+    animation-delay: 0.16s;
+  }
+  .fade-up:nth-child(4) {
+    animation-delay: 0.24s;
+  }
+
+  /* Apparition au défilement, sans JavaScript (navigateurs compatibles uniquement). */
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: slide-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+  }
+}
