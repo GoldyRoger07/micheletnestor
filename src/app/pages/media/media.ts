@@ -1,8 +1,9 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { PRESS, VIDEOS } from '../../core/content/media';
+import { GALLERY } from '../../core/content/photos';
 import { PROFILE } from '../../core/content/profile';
 import { Breadcrumb, SeoService } from '../../core/seo/seo.service';
 import { SITE } from '../../core/site.config';
@@ -12,7 +13,7 @@ import { YoutubePlayer } from '../../shared/youtube-player';
 
 @Component({
   selector: 'app-media',
-  imports: [DatePipe, RouterLink, Icon, PageHeader, YoutubePlayer],
+  imports: [DatePipe, NgOptimizedImage, RouterLink, Icon, PageHeader, YoutubePlayer],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <app-page-header
@@ -84,7 +85,30 @@ import { YoutubePlayer } from '../../shared/youtube-player';
       </div>
     </section>
 
-    <section class="section bg-paper" aria-labelledby="press-kit-title">
+    <section class="section bg-paper" aria-labelledby="gallery-title">
+      <div class="container-page">
+        <p class="eyebrow text-gold-700">Galerie</p>
+        <h2 id="gallery-title" class="section-title mt-3">En images</h2>
+        <ul class="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
+          @for (photo of gallery; track photo.src; let first = $first) {
+            <li
+              class="reveal relative overflow-hidden rounded-2xl bg-ink shadow-sm"
+              [class]="first ? 'col-span-2 row-span-2 aspect-square' : 'aspect-[4/5]'"
+            >
+              <img
+                [ngSrc]="photo.src"
+                [alt]="photo.alt"
+                fill
+                sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+                class="object-cover object-top transition duration-500 hover:scale-105"
+              />
+            </li>
+          }
+        </ul>
+      </div>
+    </section>
+
+    <section class="section bg-white" aria-labelledby="press-kit-title">
       <div class="container-page">
         <div class="card grid gap-8 p-8 md:grid-cols-3 md:items-center md:p-12">
           <div class="md:col-span-2">
@@ -107,6 +131,7 @@ export class Media {
   protected readonly profile = PROFILE;
   protected readonly press = PRESS;
   protected readonly videos = VIDEOS;
+  protected readonly gallery = GALLERY;
   protected readonly pressEmail = SITE.contact.pressEmail;
   protected readonly breadcrumbs: Breadcrumb[] = [{ name: 'Médias', path: '/medias' }];
 

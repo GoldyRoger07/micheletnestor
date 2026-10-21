@@ -1,6 +1,8 @@
+import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
+import { PHOTOS } from '../../core/content/photos';
 import { ENGAGEMENTS, PROFILE } from '../../core/content/profile';
 import { Breadcrumb, SeoService } from '../../core/seo/seo.service';
 import { Icon } from '../../shared/icon';
@@ -8,7 +10,7 @@ import { PageHeader } from '../../shared/page-header';
 
 @Component({
   selector: 'app-engagements',
-  imports: [RouterLink, Icon, PageHeader],
+  imports: [NgOptimizedImage, RouterLink, Icon, PageHeader],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <app-page-header
@@ -55,6 +57,20 @@ import { PageHeader } from '../../shared/page-header';
       }
     </div>
 
+    <section class="section bg-white" aria-labelledby="terrain-title">
+      <div class="container-page">
+        <p class="eyebrow text-gold-700">Sur le terrain</p>
+        <h2 id="terrain-title" class="section-title mt-3">Au plus près des citoyens</h2>
+        <ul class="mt-12 grid gap-6 md:grid-cols-2">
+          @for (photo of fieldPhotos; track photo.src) {
+            <li class="reveal relative aspect-[4/3] overflow-hidden rounded-3xl bg-ink shadow-xl">
+              <img [ngSrc]="photo.src" [alt]="photo.alt" fill sizes="(min-width: 768px) 50vw, 100vw" class="object-cover" />
+            </li>
+          }
+        </ul>
+      </div>
+    </section>
+
     <section class="bg-ink py-16 text-paper">
       <div class="container-page flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
         <h2 class="font-display text-3xl">Vous souhaitez soutenir ou rejoindre une initiative ?</h2>
@@ -66,6 +82,7 @@ import { PageHeader } from '../../shared/page-header';
 export class Engagements {
   protected readonly profile = PROFILE;
   protected readonly engagements = ENGAGEMENTS;
+  protected readonly fieldPhotos = [PHOTOS.saluantUnCivil, PHOTOS.saluantLaFoule];
   protected readonly breadcrumbs: Breadcrumb[] = [{ name: 'Engagements', path: '/engagements' }];
 
   constructor() {

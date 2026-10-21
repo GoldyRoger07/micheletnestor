@@ -27,10 +27,10 @@ export const PROFILE: Profile = {
     'Aujourd’hui, Michelet Nestor poursuit son action avec la même conviction : créer des opportunités, faire émerger de nouveaux talents et contribuer à une société plus juste et plus solidaire.',
   ],
   portrait: {
-    src: '/images/portrait.svg',
-    alt: 'Portrait de Michelet Nestor',
-    width: 800,
-    height: 1000,
+    src: '/images/portrait-de-Mr-Nestor.webp',
+    alt: 'Portrait officiel de Michelet Nestor, bras croisés, en costume bleu marine et cravate rouge',
+    width: 1254,
+    height: 1254,
   },
   knowsAbout: ['Engagement citoyen', 'Éducation', 'Jeunesse', 'Développement local'],
   quote: {

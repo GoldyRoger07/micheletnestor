@@ -42,14 +42,14 @@ const WORDS_PER_MINUTE = 200;
 
         <div class="bg-paper">
           <div class="container-page max-w-4xl py-12 md:py-16">
-            <div class="overflow-hidden rounded-3xl shadow-xl">
+            <div class="aspect-[16/9] overflow-hidden rounded-3xl bg-ink shadow-xl">
               <img
                 [ngSrc]="article.image.src"
                 [alt]="article.image.alt"
                 [width]="article.image.width"
                 [height]="article.image.height"
                 priority
-                class="h-auto w-full"
+                class="h-full w-full object-cover"
               />
             </div>
 

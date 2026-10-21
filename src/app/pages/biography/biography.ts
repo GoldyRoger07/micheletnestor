@@ -2,6 +2,7 @@ import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
+import { PHOTOS } from '../../core/content/photos';
 import { PROFILE } from '../../core/content/profile';
 import { Breadcrumb, SeoService } from '../../core/seo/seo.service';
 import { profilePageSchema } from '../../core/seo/structured-data';
@@ -26,7 +27,7 @@ import { RichText } from '../../shared/rich-text';
         <aside class="lg:col-span-4">
           <div class="lg:sticky lg:top-28">
             <div class="relative aspect-[4/5] overflow-hidden rounded-3xl bg-ink shadow-xl">
-              <img [ngSrc]="profile.portrait.src" [alt]="profile.portrait.alt" fill priority class="object-cover" />
+              <img [ngSrc]="photos.portraitSourire.src" [alt]="photos.portraitSourire.alt" fill priority sizes="(min-width: 1024px) 33vw, 100vw" class="object-cover object-top" />
             </div>
             <dl class="card mt-6 divide-y divide-line p-6 text-sm">
               <div class="flex justify-between gap-4 py-3 first:pt-0">
@@ -53,6 +54,13 @@ import { RichText } from '../../shared/rich-text';
 
         <div class="lg:col-span-8">
           <app-rich-text [blocks]="profile.longBio" />
+
+          <figure class="reveal mt-12">
+            <div class="relative aspect-[4/3] overflow-hidden rounded-3xl bg-ink shadow-xl">
+              <img [ngSrc]="photos.enFamille.src" [alt]="photos.enFamille.alt" fill sizes="(min-width: 1024px) 66vw, 100vw" class="object-cover" />
+            </div>
+            <figcaption class="mt-3 text-sm text-muted">{{ profile.name }} entouré de sa famille.</figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -106,6 +114,7 @@ import { RichText } from '../../shared/rich-text';
 })
 export class Biography {
   protected readonly profile = PROFILE;
+  protected readonly photos = PHOTOS;
   protected readonly breadcrumbs: Breadcrumb[] = [{ name: 'Biographie', path: '/biographie' }];
 
   constructor() {

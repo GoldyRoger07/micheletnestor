@@ -63,15 +63,20 @@
       </a>
     </div>
 
-    <figure class="reveal relative self-center rounded-3xl bg-ink p-10 text-paper shadow-xl md:p-14">
-      <app-icon name="quote" [size]="44" class="text-gold-500" />
-      <blockquote class="mt-6 font-display text-2xl leading-snug md:text-3xl">
-        « {{ profile.quote.text }} »
-      </blockquote>
-      @if (profile.quote.context) {
-        <figcaption class="mt-6 text-sm uppercase tracking-widest text-gold-300">— {{ profile.quote.context }}</figcaption>
-      }
-    </figure>
+    <div class="reveal relative self-center">
+      <div class="relative aspect-[4/3] overflow-hidden rounded-3xl bg-ink shadow-xl">
+        <img [ngSrc]="aboutPhoto.src" [alt]="aboutPhoto.alt" fill sizes="(min-width: 1024px) 50vw, 100vw" class="object-cover object-top" />
+      </div>
+      <figure class="relative -mt-16 ml-6 rounded-3xl bg-ink p-8 text-paper shadow-xl md:-mt-24 md:ml-16 md:p-10">
+        <app-icon name="quote" [size]="36" class="text-gold-500" />
+        <blockquote class="mt-4 font-display text-xl leading-snug md:text-2xl">
+          « {{ profile.quote.text }} »
+        </blockquote>
+        @if (profile.quote.context) {
+          <figcaption class="mt-5 text-sm uppercase tracking-widest text-gold-300">— {{ profile.quote.context }}</figcaption>
+        }
+      </figure>
+    </div>
   </div>
 </section>
 

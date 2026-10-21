@@ -15,10 +15,10 @@ const ARTICLES: NewsArticle[] = [
     date: '2026-09-02',
     category: 'Annonce',
     image: {
-      src: '/images/news/news-1.svg',
-      alt: 'Illustration du programme de bourses pour la jeunesse',
-      width: 1200,
-      height: 675,
+      src: '/images/Mr-Nestor-saluant-la-foule.webp',
+      alt: 'Michelet Nestor saluant une foule nombreuse depuis un véhicule',
+      width: 1078,
+      height: 1080,
     },
     body: [
       'Michelet Nestor a présenté un programme de bourses destiné à soutenir les jeunes dans la poursuite de leurs études et la concrétisation de leurs projets.',
@@ -37,10 +37,10 @@ const ARTICLES: NewsArticle[] = [
     date: '2026-07-15',
     category: 'Terrain',
     image: {
-      src: '/images/news/news-2.svg',
-      alt: 'Illustration d’une rencontre citoyenne',
-      width: 1200,
-      height: 675,
+      src: '/images/Mr-Nestor-saluant-un-civil.webp',
+      alt: 'Michelet Nestor serrant la main d’un habitant lors d’une rencontre citoyenne',
+      width: 960,
+      height: 642,
     },
     body: [
       'Michelet Nestor est allé à la rencontre des habitants lors d’une journée consacrée au développement local.',
@@ -57,10 +57,10 @@ const ARTICLES: NewsArticle[] = [
     date: '2026-05-28',
     category: 'Conférence',
     image: {
-      src: '/images/news/news-3.svg',
-      alt: 'Illustration d’une conférence sur l’éducation',
-      width: 1200,
-      height: 675,
+      src: '/images/Mr-Nestor-emission-tv.webp',
+      alt: 'Michelet Nestor lors d’une prise de parole sur un plateau de télévision',
+      width: 820,
+      height: 820,
     },
     body: [
       'Lors d’une conférence réunissant enseignants, chercheurs et décideurs, Michelet Nestor a présenté sa vision d’une éducation accessible à tous.',

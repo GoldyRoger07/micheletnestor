@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { NEWS } from '../../core/content/news';
+import { PHOTOS } from '../../core/content/photos';
 import { ENGAGEMENTS, PROFILE } from '../../core/content/profile';
 import { SeoService } from '../../core/seo/seo.service';
 import { PERSON_ID } from '../../core/seo/structured-data';
@@ -21,6 +22,7 @@ export class Home {
   protected readonly engagements = ENGAGEMENTS.slice(0, 3);
   protected readonly latestNews = NEWS.slice(0, 3);
   protected readonly site = SITE;
+  protected readonly aboutPhoto = PHOTOS.portraitBureau;
 
   constructor() {
     inject(SeoService).update({
